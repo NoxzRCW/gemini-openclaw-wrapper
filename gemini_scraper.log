@@ -14,3 +14,23 @@ Call log:
 Call log:
   - navigating to "https://gemini.google.com/app", waiting until "networkidle"
 
+2026-05-10 16:11:15,924 - gemini_api - INFO - Starting Gemini OpenClaw Wrapper...
+2026-05-10 16:11:15,924 - gemini_scraper - INFO - Initializing browser...
+2026-05-10 16:11:16,571 - gemini_scraper - INFO - Browser initialized
+2026-05-10 16:11:16,571 - gemini_scraper - INFO - Checking Gemini accessibility...
+2026-05-10 16:11:16,882 - gemini_scraper - WARNING - Navigation timeout, retrying... (Page.goto: net::ERR_CERT_AUTHORITY_INVALID at https://gemini.google.com/app
+Call log:
+  - navigating to "https://gemini.google.com/app", waiting until "domcontentloaded"
+)
+2026-05-10 16:11:17,083 - gemini_api - ERROR - Failed to initialize scraper: Page.goto: net::ERR_CERT_AUTHORITY_INVALID at https://gemini.google.com/app
+Call log:
+  - navigating to "https://gemini.google.com/app", waiting until "load"
+
+2026-05-10 16:11:59,142 - gemini_api - INFO - Starting Gemini OpenClaw Wrapper...
+2026-05-10 16:11:59,142 - gemini_scraper - INFO - Initializing browser...
+2026-05-10 16:11:59,773 - gemini_scraper - INFO - Browser initialized
+2026-05-10 16:11:59,773 - gemini_scraper - INFO - Checking Gemini accessibility...
+2026-05-10 16:12:04,887 - gemini_scraper - WARNING - Gemini textarea not found - may require auth or page structure changed
+2026-05-10 16:12:04,888 - gemini_api - INFO - Gemini scraper initialized successfully
+2026-05-10 16:12:23,688 - gemini_scraper - INFO - Browser closed
+2026-05-10 16:12:23,688 - gemini_api - INFO - Gemini scraper closed
