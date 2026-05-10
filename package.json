@@ -1,0 +1,11 @@
+{
+  "name": "gemini-openclaw-wrapper",
+  "version": "1.0.0",
+  "description": "Free Gemini integration for OpenClaw via Playwright",
+  "scripts": {
+    "start": "./start_gemini.sh",
+    "stop": "./stop_gemini.sh",
+    "status": "./status_gemini.sh",
+    "dev": "GEMINI_HEADLESS=false uvicorn gemini_api:app --host 0.0.0.0 --port 8080 --reload"
+  }
+}
