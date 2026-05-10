@@ -1,0 +1,62 @@
+/root/.openclaw/workspace/gemini-openclaw-wrapper/gemini_api.py:51: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("startup")
+/root/.openclaw/workspace/gemini-openclaw-wrapper/gemini_api.py:66: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("shutdown")
+INFO:     Started server process [131777]
+INFO:     Waiting for application startup.
+2026-05-10 22:30:06,923 - __main__ - INFO - Starting Gemini OpenClaw Wrapper...
+2026-05-10 22:30:06,923 - gemini_scraper - INFO - Initializing browser...
+2026-05-10 22:30:07,879 - gemini_scraper - INFO - Browser initialized
+2026-05-10 22:30:07,879 - gemini_scraper - INFO - Checking Gemini accessibility...
+2026-05-10 22:30:37,946 - __main__ - ERROR - Failed to initialize scraper: Page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "https://gemini.google.com/app", waiting until "networkidle"
+
+ERROR:    Traceback (most recent call last):
+  File "/root/.openclaw/workspace/gemini-openclaw-wrapper/venv/lib/python3.12/site-packages/starlette/routing.py", line 638, in lifespan
+    async with self.lifespan_context(app) as maybe_state:
+  File "/root/.openclaw/workspace/gemini-openclaw-wrapper/venv/lib/python3.12/site-packages/fastapi/routing.py", line 241, in __aenter__
+    await self._router._startup()
+  File "/root/.openclaw/workspace/gemini-openclaw-wrapper/venv/lib/python3.12/site-packages/fastapi/routing.py", line 4884, in _startup
+    await handler()
+  File "/root/.openclaw/workspace/gemini-openclaw-wrapper/gemini_api.py", line 60, in startup_event
+    await scraper.authenticate()
+  File "/root/.openclaw/workspace/gemini-openclaw-wrapper/gemini_scraper.py", line 84, in authenticate
+    await self.page.goto(self.gemini_url, wait_until="networkidle")
+  File "/root/.openclaw/workspace/gemini-openclaw-wrapper/venv/lib/python3.12/site-packages/playwright/async_api/_generated.py", line 9365, in goto
+    await self._impl_obj.goto(
+  File "/root/.openclaw/workspace/gemini-openclaw-wrapper/venv/lib/python3.12/site-packages/playwright/_impl/_page.py", line 552, in goto
+    return await self._main_frame.goto(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.openclaw/workspace/gemini-openclaw-wrapper/venv/lib/python3.12/site-packages/playwright/_impl/_frame.py", line 153, in goto
+    await self._channel.send(
+  File "/root/.openclaw/workspace/gemini-openclaw-wrapper/venv/lib/python3.12/site-packages/playwright/_impl/_connection.py", line 69, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.openclaw/workspace/gemini-openclaw-wrapper/venv/lib/python3.12/site-packages/playwright/_impl/_connection.py", line 559, in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+playwright._impl._errors.TimeoutError: Page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "https://gemini.google.com/app", waiting until "networkidle"
+
+
+ERROR:    Application startup failed. Exiting.
+Exception ignored in: <function BaseSubprocessTransport.__del__ at 0x743b61f8c900>
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/asyncio/base_subprocess.py", line 126, in __del__
+  File "/usr/lib/python3.12/asyncio/base_subprocess.py", line 104, in close
+  File "/usr/lib/python3.12/asyncio/unix_events.py", line 767, in close
+  File "/usr/lib/python3.12/asyncio/unix_events.py", line 753, in write_eof
+  File "/usr/lib/python3.12/asyncio/base_events.py", line 795, in call_soon
+  File "/usr/lib/python3.12/asyncio/base_events.py", line 541, in _check_closed
+RuntimeError: Event loop is closed

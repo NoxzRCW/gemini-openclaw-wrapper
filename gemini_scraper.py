@@ -63,14 +63,17 @@ class GeminiScraper:
                 "--disable-blink-features=AutomationControlled",
                 "--disable-web-security",
                 "--disable-features=IsolateOrigins,site-per-process",
-                "--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+                "--disable-dev-shm-usage",
+                "--disable-gpu",
+                "--disable-software-rasterizer",
+                "--user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
             ]
         )
         
         # Create context with viewport
         self.context = await self.browser.new_context(
             viewport={"width": 1920, "height": 1080},
-            user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+            user_agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
         )
         
         self.page = await self.context.new_page()
@@ -80,9 +83,14 @@ class GeminiScraper:
         """Check if Gemini is accessible (no auth needed for Gemini Flash)"""
         logger.info("Checking Gemini accessibility...")
         
-        # Navigate to Gemini
-        await self.page.goto(self.gemini_url, wait_until="networkidle")
-        await asyncio.sleep(3)
+        # Navigate to Gemini with longer timeout
+        try:
+            await self.page.goto(self.gemini_url, wait_until="domcontentloaded", timeout=60000)
+            await asyncio.sleep(5)  # Wait for JS to load
+        except Exception as e:
+            logger.warning(f"Navigation timeout, retrying... ({e})")
+            await self.page.goto(self.gemini_url, wait_until="load", timeout=60000)
+            await asyncio.sleep(5)
         
         # Check if the textarea is available (means we can use Gemini)
         textarea = await self.page.query_selector(self.SELECTORS["textarea"])
