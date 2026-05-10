@@ -55,9 +55,19 @@ class GeminiScraper:
         
         playwright = await async_playwright().start()
         
+        # Use pre-installed Chromium if the default executable is missing
+        chromium_executable = os.environ.get(
+            "PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH",
+            "/opt/pw-browsers/chromium-1194/chrome-linux/chrome"
+        )
+        launch_kwargs = {}
+        if os.path.exists(chromium_executable):
+            launch_kwargs["executable_path"] = chromium_executable
+
         # Launch browser with stealth args
         self.browser = await playwright.chromium.launch(
             headless=self.headless,
+            **launch_kwargs,
             args=[
                 "--no-sandbox",
                 "--disable-blink-features=AutomationControlled",
@@ -66,6 +76,7 @@ class GeminiScraper:
                 "--disable-dev-shm-usage",
                 "--disable-gpu",
                 "--disable-software-rasterizer",
+                "--ignore-certificate-errors",
                 "--user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
             ]
         )
@@ -88,9 +99,14 @@ class GeminiScraper:
             await self.page.goto(self.gemini_url, wait_until="domcontentloaded", timeout=60000)
             await asyncio.sleep(5)  # Wait for JS to load
         except Exception as e:
-            logger.warning(f"Navigation timeout, retrying... ({e})")
-            await self.page.goto(self.gemini_url, wait_until="load", timeout=60000)
-            await asyncio.sleep(5)
+            logger.warning(f"First navigation attempt failed ({e}), retrying...")
+            try:
+                await self.page.goto(self.gemini_url, wait_until="load", timeout=60000)
+                await asyncio.sleep(5)
+            except Exception as e2:
+                logger.error(f"Navigation failed: {e2}")
+                self.is_authenticated = False
+                return False
         
         # Check if the textarea is available (means we can use Gemini)
         textarea = await self.page.query_selector(self.SELECTORS["textarea"])

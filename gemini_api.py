@@ -53,7 +53,7 @@ async def startup_event():
     """Initialize the Gemini scraper on startup"""
     global scraper
     logger.info("Starting Gemini OpenClaw Wrapper...")
-    
+
     try:
         scraper = GeminiScraper()
         await scraper.init_browser()
@@ -61,7 +61,7 @@ async def startup_event():
         logger.info("Gemini scraper initialized successfully")
     except Exception as e:
         logger.error(f"Failed to initialize scraper: {e}")
-        raise
+        logger.warning("Server starting in degraded mode — Gemini unreachable")
 
 @app.on_event("shutdown")
 async def shutdown_event():
