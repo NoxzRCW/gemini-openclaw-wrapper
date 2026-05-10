@@ -34,3 +34,9 @@ Call log:
 2026-05-10 16:12:04,888 - gemini_api - INFO - Gemini scraper initialized successfully
 2026-05-10 16:12:23,688 - gemini_scraper - INFO - Browser closed
 2026-05-10 16:12:23,688 - gemini_api - INFO - Gemini scraper closed
+2026-05-10 16:15:08,284 - gemini_api - INFO - Starting Gemini OpenClaw Wrapper...
+2026-05-10 16:15:08,284 - gemini_scraper - INFO - Initializing browser...
+2026-05-10 16:15:08,909 - gemini_scraper - INFO - Browser initialized
+2026-05-10 16:15:08,909 - gemini_scraper - INFO - Checking Gemini accessibility...
+2026-05-10 16:15:14,170 - gemini_scraper - WARNING - Gemini textarea not found - may require auth or page structure changed
+2026-05-10 16:15:14,170 - gemini_api - INFO - Gemini scraper initialized successfully
